@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="renderer" content="webkit">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+	<script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+	<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="stylesheets/logo.css">
+	<link rel="stylesheet" type="text/css" href="stylesheets/identify.css">
+	<title>文档标题</title>
+</head>
+<body>
+	<header>
+		<a class="logo-Back-Icon" href="setting.html"></a><h3>查看身份</h3><a class="logo-close right" href="#"></a>
+	</header>
+	<div class="wrap">
+		<div class="number-wrap"><span class="number" id="number">1</span></div>
+		<img src="image/preflop/bg-1.png" class="wrap-bg" id="img1">
+		<div class="wrap-role" id="wrap-role">
+			<img src="image/preflop/bg-2.png" id="img2">
+			<h3>角色：<span id="role">平民</span></h3>
+		</div>
+		
+
+	</div>
+	<footer>
+		<button type="button" class="query" id="query">查看1号身份</button>
+	</footer>
+<script type="text/javascript" src="javascripts/state-machine.js"></script>
+<script type="text/javascript">
+	try{
+		var identifyArr = JSON.parse(sessionStorage.getItem("identifyArr"));
+		console.log(identifyArr);
+	var len = identifyArr.length;
+	var queryBtn = document.getElementById("query");
+	var roleWrap = document.getElementById("wrap-role");
+	var img1 = document.getElementById("img1");
+	var role = document.getElementById("role");
+	var number = document.getElementById("number");
+	var count=0;
+	queryBtn.onclick = function(){
+		if(queryBtn.innerText.indexOf("法官")!=-1){
+			window.open("judgeDiary.html","_self");
+		}else if(queryBtn.innerText.indexOf("查看")!=-1){
+			roleWrap.style.opacity="1";
+			img1.style.opacity="0";
+			role.innerText = identifyArr[count].role;
+			count++;
+			if(count>=len){
+				queryBtn.innerText="法官查看";
+			}else{
+				queryBtn.innerText="隐藏并传递给"+(count+1)+"号";
+			}
+			
+		}else{
+			roleWrap.style.opacity="0";
+			img1.style.opacity="1";
+			queryBtn.innerText="查看"+(count+1)+"号身份";
+			number.innerText = count+1;	
+		}
+	};
+	}catch(e){
+		console.log(e);
+		window.location.href = "index.html";
+	}
+
+	sessionStorage.setItem("day","1");
+
+	
+	
+	
+	
+</script>
+</body>
+</html>

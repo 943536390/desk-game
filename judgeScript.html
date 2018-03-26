@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="renderer" content="webkit">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+	<script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+	<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	
+	<link rel="stylesheet" type="text/css" href="stylesheets/logo.css">
+	<link rel="stylesheet" type="text/css" href="stylesheets/judgeScript.css">
+	<title>文档标题</title>
+</head>
+<body>
+	<header>
+		<a class="logo-Back-Icon" href="index.html"></a><h3>法官台本</h3><a class="logo-close right" href="#"></a>
+	</header>
+	<div class="wrap">
+		<div class="day-wrap" id="day-wrap1">
+			<div class="day" id="day1">第1天</div>
+			<div class="content" id="content1">
+				<ul class="moon">
+					<li class="first-li kill">杀手杀人</li>
+				</ul>
+				<ul class="sun">
+					<li class ="deadwords">亡灵发表遗言</li>
+					<li class="discuss">玩家依次发言</li>
+					<li class="last-li vote">玩家投票</li>
+				</ul>
+			</div>
+		</div>
+		
+	</div>
+	<footer>
+		<button id="gameover">结束游戏</button>
+		<button id="inquiryDiary">法官日记</button>
+	</footer>
+</body>
+<script type="text/javascript" src="javascripts/common.js"></script>
+<script type="text/javascript" src="javascripts/state-machine.js"></script>
+<script type="text/javascript">
+
+	var livePeople=0,
+		liveKiller=0;
+	var param = getURLParam();
+	var action = param.action;
+	
+
+	var day=Number(sessionStorage.getItem("day"));
+	if(day>1){
+		var newNode = $("#day-wrap1").clone(true).attr('id', 'day-wrap'+day)
+									.find(".day").attr('id', 'day'+day)
+									.text("第"+day+"天")
+									.end().find('.content').attr('id', 'content'+day)
+									.end();
+		$("#day-wrap1").find(".content").css("display","none");		
+		for(var i=2;i<day;i++){
+		$("#day-wrap1").clone(true).attr('id', 'day-wrap'+i).appendTo(".wrap")
+									.find(".day").attr('id', 'day'+day)
+									.text("第"+day+"天");	
+		}	
+		newNode.appendTo('.wrap');	
+	}
+	
+	
+
+
+
+	$("#inquiryDiary").click(function(event) {
+		/* Act on the event */
+		window.open("judgeDiary.html?action="+fsm.state,"_self");
+	});
+
+	$(".kill").click(function(){
+		fsm.killPeople(this);
+		//window.open("kill.html","_self");
+	});
+
+	$(".deadwords").click(function(){
+		fsm.deadwords(this);
+	});
+	$(".discuss").click(function(){
+		fsm.discussion(this);
+	});
+	$(".vote").click(function(){
+		fsm.votePeople(this);
+	});
+
+
+
+	
+
+
+	//存储状态机
+	var fsm = new StateMachine({
+　　　　init: 'None',
+		transitions: [
+　　　　　　{ name: 'killPeople',  from: 'None',  to: 'Kill' },
+　　　　　　{ name: 'deadwords', from: 'Kill', to: 'Words' },
+　　　　　　{ name: 'discussion',  from: 'Words',    to: 'Discuss' },
+　　　　　　{ name: 'votePeople', from: 'Discuss', to: 'Vote' },
+			{ name: 'next', from: 'Vote', to: 'None' },
+　　　　],
+		methods: {
+			onKillPeople: function(lifecycle, arg1){
+				if(arg1 instanceof Object){
+					window.open("kill.html","_self");
+					$(arg1).addClass("press");
+				}else{
+					$(".kill").addClass("press");
+				}	
+			},
+			onDeadwords: function(lifecycle,arg1){
+				if(arg1 instanceof Object){
+					alert('请死者亮明身份并发表遗言');
+					$(arg1).addClass("press");
+				}else{
+					$(".deadwords").addClass("press");
+				}	
+				
+			},
+			onDiscussion: function(lifecycle,arg1){
+				if(arg1 instanceof Object){
+					alert('请玩家开始讨论')
+					$(arg1).addClass("press");
+				}else{
+					$(".discuss").addClass("press");
+				}	
+			},
+			onVotePeople: function(lifecycle,arg1){
+				if(arg1 instanceof Object){
+					window.open("vote.html","_self");
+					$(arg1).addClass("press");
+				}else{
+					$(".vote").addClass("press");
+				}	
+				
+				
+			},
+
+			onEnterNone: function(lifecycle){
+				if(lifecycle.from=="Vote"){
+					var identifyArr = JSON.parse(sessionStorage.getItem("identifyArr"));
+					var killerArr = identifyArr.filter(function(item,index,array) {
+						if(item.role=="杀手"&&item.life){
+							return true;
+						}
+						return false;
+					});
+					var peopleArr = identifyArr.filter(function(item,index,array) {
+						if(item.role=="平民"&&item.life){
+							return true;
+						}
+						return false;
+					});
+
+					if(killerArr.length>=peopleArr.length||killerArr.length==0){
+						alert("游戏结束");
+						window.open("result.html","_self");
+					}else{
+
+						alert("进入第"+(++day)+"天");
+						sessionStorage.setItem("day",String(day));
+						$("#day-wrap"+(day-1)).clone(true).appendTo('.wrap')
+										.attr('id', 'day-wrap'+day)
+										.find(".day").attr('id', 'day'+day)
+													.text("第"+day+"天")
+										.end()
+										.find('.content').attr('id', 'content'+day);
+						$("#day-wrap"+(day-1)).find(".content").css("display","none");
+						
+						$("#day-wrap"+day+" li").removeClass('press');
+					}
+				}
+				
+				
+			},
+			 onInvalidTransition: function(transition, from, to) {
+        console.log("transition not allowed from that state");
+        //throw new Error();
+      }
+		}
+　　
+　　});
+
+switch(action){
+	case "killPeople":
+		fsm.killPeople(action);
+		break;
+	case "votePeople":
+		fsm.killPeople(action);
+		fsm.deadwords(action);
+		fsm.discussion(action);
+		fsm.votePeople(action);
+		fsm.next(action);
+		break;
+	case 'Kill':
+		fsm.killPeople(action);
+		break;
+	case 'Words':
+		fsm.killPeople(action);
+		fsm.deadwords(action);
+		break;
+	case 'Discuss':
+		fsm.killPeople(action);
+		fsm.deadwords(action);
+		fsm.discussion(action);
+		break;
+	case 'Vote':
+		fsm.killPeople(action);
+		fsm.deadwords(action);
+		fsm.discussion(action);
+		fsm.votePeople(action);
+		break;
+	default:
+		break;
+
+
+}
+
+	
+
+
+
+</script>
+</html>

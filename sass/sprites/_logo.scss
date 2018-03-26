@@ -1,0 +1,161 @@
+@import "compass/utilities/sprites/base";
+
+// General Sprite Defaults
+// You can override them before you import this file.
+$logo-sprite-dimensions : false !default;
+$logo-use-percentages   : false !default;
+$logo-position          : 0% !default;
+$logo-spacing           : 0 !default;
+$logo-repeat            : no-repeat !default;
+$logo-prefix            : '' !default;
+$logo-clean-up          : true !default;
+$logo-layout            : vertical !default;
+$logo-inline            : false !default;
+$logo-sort-by           : 'none' !default;
+$logo-class-separator   : $default-sprite-separator !default;
+$logo-sprite-base-class : ".logo#{$logo-class-separator}sprite" !default;
+
+  
+ // These variables control the generated sprite output
+ // You can override them selectively before you import this file.
+ 
+   $logo-about-position: $logo-position !default;
+   $logo-about-spacing:  $logo-spacing !default;
+   $logo-about-repeat:   $logo-repeat !default;
+ 
+   $logo-back-position: $logo-position !default;
+   $logo-back-spacing:  $logo-spacing !default;
+   $logo-back-repeat:   $logo-repeat !default;
+ 
+   $logo-circle-position: $logo-position !default;
+   $logo-circle-spacing:  $logo-spacing !default;
+   $logo-circle-repeat:   $logo-repeat !default;
+ 
+   $logo-close-position: $logo-position !default;
+   $logo-close-spacing:  $logo-spacing !default;
+   $logo-close-repeat:   $logo-repeat !default;
+ 
+   $logo-drop-position: $logo-position !default;
+   $logo-drop-spacing:  $logo-spacing !default;
+   $logo-drop-repeat:   $logo-repeat !default;
+ 
+   $logo-moon-position: $logo-position !default;
+   $logo-moon-spacing:  $logo-spacing !default;
+   $logo-moon-repeat:   $logo-repeat !default;
+ 
+   $logo-question-position: $logo-position !default;
+   $logo-question-spacing:  $logo-spacing !default;
+   $logo-question-repeat:   $logo-repeat !default;
+ 
+   $logo-setting-position: $logo-position !default;
+   $logo-setting-spacing:  $logo-spacing !default;
+   $logo-setting-repeat:   $logo-repeat !default;
+ 
+   $logo-sound-position: $logo-position !default;
+   $logo-sound-spacing:  $logo-spacing !default;
+   $logo-sound-repeat:   $logo-repeat !default;
+ 
+   $logo-sound2-position: $logo-position !default;
+   $logo-sound2-spacing:  $logo-spacing !default;
+   $logo-sound2-repeat:   $logo-repeat !default;
+ 
+
+ $logo-sprites: sprite-map("logo/*.png",
+ 
+   $logo-about-position: $logo-about-position, 
+   $logo-about-spacing:  $logo-about-spacing, 
+   $logo-about-repeat:   $logo-about-repeat,
+ 
+   $logo-back-position: $logo-back-position, 
+   $logo-back-spacing:  $logo-back-spacing, 
+   $logo-back-repeat:   $logo-back-repeat,
+ 
+   $logo-circle-position: $logo-circle-position, 
+   $logo-circle-spacing:  $logo-circle-spacing, 
+   $logo-circle-repeat:   $logo-circle-repeat,
+ 
+   $logo-close-position: $logo-close-position, 
+   $logo-close-spacing:  $logo-close-spacing, 
+   $logo-close-repeat:   $logo-close-repeat,
+ 
+   $logo-drop-position: $logo-drop-position, 
+   $logo-drop-spacing:  $logo-drop-spacing, 
+   $logo-drop-repeat:   $logo-drop-repeat,
+ 
+   $logo-moon-position: $logo-moon-position, 
+   $logo-moon-spacing:  $logo-moon-spacing, 
+   $logo-moon-repeat:   $logo-moon-repeat,
+ 
+   $logo-question-position: $logo-question-position, 
+   $logo-question-spacing:  $logo-question-spacing, 
+   $logo-question-repeat:   $logo-question-repeat,
+ 
+   $logo-setting-position: $logo-setting-position, 
+   $logo-setting-spacing:  $logo-setting-spacing, 
+   $logo-setting-repeat:   $logo-setting-repeat,
+ 
+   $logo-sound-position: $logo-sound-position, 
+   $logo-sound-spacing:  $logo-sound-spacing, 
+   $logo-sound-repeat:   $logo-sound-repeat,
+ 
+   $logo-sound2-position: $logo-sound2-position, 
+   $logo-sound2-spacing:  $logo-sound2-spacing, 
+   $logo-sound2-repeat:   $logo-sound2-repeat,
+ 
+ $layout   : $logo-layout,
+ $cleanup  : $logo-clean-up,
+ $spacing  : $logo-spacing,
+ $position : $logo-position,
+ $sort-by  : $logo-sort-by
+ );
+
+
+// All sprites should extend this class
+// The logo-sprite mixin will do so for you.
+@if $logo-inline {
+  #{$logo-sprite-base-class} {
+    background-image: inline-sprite($logo-sprites);
+  } 
+} @else {
+  #{$logo-sprite-base-class} {
+    background-image: sprite-url($logo-sprites);
+    background-repeat: no-repeat;
+  }
+}
+//sass functions to return the dimensions of a sprite image as units
+
+  @function logo-sprite-width($name) {
+    @return sprite-width($logo-sprites, $name);
+  }
+
+  @function logo-sprite-height($name) {
+    @return sprite-height($logo-sprites, $name);
+  }
+
+
+// Use this to set the dimensions of an element
+// based on the size of the original image.
+@mixin logo-sprite-dimensions($name) {
+  @include sprite-dimensions($logo-sprites, $name)
+}
+
+// Move the background position to display the sprite.
+@mixin logo-sprite-position($name, $offset-x: 0, $offset-y: 0, $use-percentages: $logo-use-percentages) {
+  @include sprite-background-position($logo-sprites, $name, $offset-x, $offset-y, $use-percentages)
+}
+
+// Extends the sprite base class and set the background position for the desired sprite.
+// It will also apply the image dimensions if $dimensions is true.
+@mixin logo-sprite($name, $dimensions: $logo-sprite-dimensions, $offset-x: 0, $offset-y: 0, $use-percentages: $logo-use-percentages, $separator: $logo-class-separator) {
+  @extend #{$logo-sprite-base-class};
+  @include sprite($logo-sprites, $name, $dimensions, $offset-x, $offset-y, $use-percentages, $separator: $separator);
+}
+
+@mixin logo-sprites($sprite-names, $dimensions: $logo-sprite-dimensions, $prefix: sprite-map-name($logo-sprites), $offset-x: 0, $offset-y: 0, $use-percentages: $logo-use-percentages, $separator: $logo-class-separator) {
+  @include sprites($logo-sprites, $sprite-names, $logo-sprite-base-class, $dimensions, $prefix, $offset-x, $offset-y, $use-percentages, $separator: $separator)
+}
+
+// Generates a class for each sprited image.
+@mixin all-logo-sprites($dimensions: $logo-sprite-dimensions, $prefix: sprite-map-name($logo-sprites), $offset-x: 0, $offset-y: 0, $use-percentages: $logo-use-percentages, $separator: $logo-class-separator) {
+  @include logo-sprites(about back circle close drop moon question setting sound sound2, $dimensions, $prefix, $offset-x, $offset-y, $use-percentages, $separator: $separator);
+}

@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="renderer" content="webkit">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+	<script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+	<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="stylesheets/logo.css">
+	<link rel="stylesheet" type="text/css" href="stylesheets/setting.css">
+	<title>文档标题</title>
+</head>
+<body>
+	<header>
+		<a class="logo-Back-Icon" href="index.html"></a><h3>参数设置</h3><a class="logo-circled-help right" href="#"></a>
+	</header>
+	<form class="wrap">
+		<div class="player-ratio">
+			<div class="player-ratio-aside left"><span>玩家配比</span></div>
+			<div class="player-ratio-session left">
+				<div class="show">
+					<table >
+						<tr>
+							<td>
+								<label for="killer"><i></i>杀&nbsp;&nbsp;手<input type="number" min="1" max="5"  name="killer" id="killer1" value="2"  readonly="true">人</label>
+							</td>
+							<td>
+								<label for="killer"><i></i>杀&nbsp;&nbsp;手<input type="number" min="1" max="5" name="killer" id="killer2" value="1" readonly="true">人</label>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<label for="civilian"><i></i>平&nbsp;&nbsp;民<input type="number" min="1" max="5" name="civilian" id="civilian1" value="4" readonly="true">人</label>
+							</td>
+							<td>
+								<label for="civilian"><i></i>平&nbsp;&nbsp;民<input type="number" min="1" max="5" name="civilian" id="civilian2" value="1" readonly="true">人</label>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<label for="doctor"><i></i>医&nbsp;&nbsp;生<input type="number" min="1" max="5" name="doctor" id="doctor1" value="1" readonly="true">人</label>
+							</td>
+							<td>
+								<label for="doctor"><i></i>医&nbsp;&nbsp;生<input type="number" min="1" max="5" name="doctor" id="doctor2" value="1" readonly="true">人</label>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<label for="judge"><i></i>法&nbsp;&nbsp;官<input type="number"  name="judge" id="judge1" value="1" readonly="true">人</label>
+							</td>
+							<td>
+								<label for="judge"><i></i>法&nbsp;&nbsp;官<input type="number" name="judge" id="judge2" value="1" readonly="true">人</label>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<label for="hunter"><i></i>猎&nbsp;&nbsp;人<input type="number" min="1" max="5" name="hunter" id="hunter1" value="1" readonly="true">人</label>
+							</td>
+							<td>
+								<label for="hunter"><i></i>猎&nbsp;&nbsp;人<input type="number" min="1" max="5" name="hunter" id="hunter2" value="1" readonly="true" >人</label>
+							</td>
+						</tr>
+					</table>
+				</div>
+				
+				<div class="setting"><a id="setting-word" class="setting-word" href="javascript:void(0)" >点击设置<span class="logo-pencil"></span></a></div>
+			</div>
+		</div>
+		<div class="word">
+			<input type="text" name="shuimingword" placeholder="水民词组">
+			<input type="text" name="youlingword" placeholder="幽灵词组">
+		</div>
+		<div class="people-num">
+			<div class="show-num">
+				<label>玩家人数<input type="text" name="number" readonly="true" value="6"  id="playerNum">人</label>
+			</div>	
+			<div class="adjust-num">
+				<button id="sub" class="sub-btn" type="button" onclick="subNum()"><span>-</span></button>
+				<input type="range" max="18" min="6" step="1" value="6" class="slider-block" id="slider" >
+				<button id="add" class="add-btn" type="button" onclick="addNum()"><span>+</span></button>
+			</div>
+		</div>
+		<input type="button" name="send_card" value="去发牌" class="send_card" id="send">
+		
+	</form>
+	<script type="text/javascript">
+		
+			var palyerNum = document.getElementById("playerNum");
+			var range  = document.getElementById("slider");
+			var sumNum;
+			var tables = document.getElementsByTagName("table");
+			var inputs = tables[0].getElementsByTagName("input");
+			range.onchange = changeRange;
+
+
+			function changeRange(){
+				playerNum.value = range.value;
+				sumNum=Number(range.value);
+				// switch(sumNum){
+				// 	case 6:
+				// 	case 7:
+				// 	case 8:
+				// 	case 9:
+				// 		inputs["killer"].value=2;
+				// 		inputs["hunter"].value=1;
+				// 		inputs["doctor"].value=1;
+				// 		inputs["civilian"].value=sumNum-1-inputs["killer"].value-inputs["hunter"].value-inputs["doctor"].value;
+				// 		break;
+				// 	default:
+				// 		break;
+				// }
+			}
+			function addNum(){
+				sumNum = playerNum.value;
+				sumNum++;
+				if(sumNum>18){
+					alert("最多只能设置18名玩家！");
+				}else{
+					playerNum.value=sumNum;
+					range.value=sumNum;
+				}
+			}
+			function subNum(){
+				sumNum = playerNum.value;
+				sumNum--;
+				if(sumNum<6){
+					alert("至少需要6名玩家！");
+				}else{
+					playerNum.value=sumNum;
+					range.value=sumNum;
+				}
+			}
+			
+
+			function setRadio(e){	
+				if(e.target.text.indexOf("点击设置")!=-1){
+					for(var i=0,len=inputs.length;i<len;i++){
+						if(inputs[i].name!="judge"){
+							inputs[i].removeAttribute('readonly');
+						inputs[i].style.border="1px solid #d9d9d9";
+						}
+						
+						
+					}
+					e.target.innerHTML="完成";
+				}else {
+					for(var i=0,len=inputs.length;i<len;i++){
+						if(inputs[i].name!="judge"){
+							if(inputs[i].value<=0||inputs[i].value>5){
+							alert("只能设置1~5人");
+							return false;
+						}else {
+							inputs[i].setAttribute("readonly","true");
+							inputs[i].style.border="none";
+						}
+
+						}
+					}
+					e.target.innerHTML="点击设置<span class='logo-pencil'></span>";
+				}
+				return false;
+			}
+
+			document.getElementById("setting-word").onclick=setRadio;
+
+			document.getElementById("send").onclick=function(){
+				var sumPlayer = playerNum.value;
+				var killer = inputs["killer"].value;
+				var civilian = inputs["civilian"].value;
+
+				sessionStorage.setItem("sumPlayer",sumPlayer);
+				sessionStorage.setItem("killer",killer);
+				sessionStorage.setItem("civilian",civilian);
+
+				var arr = new Array();
+				for(var i=0;i<sumPlayer;i++){
+					if(i<=killer-1){
+						arr.push({role:"杀手",life:true});
+					}else if(i<=killer-1+civilian){
+						arr.push({role:"平民",life:true});
+					}
+				}
+				arr=shuffle(arr);
+				console.log(arr);
+				console.log(JSON.stringify(arr));
+				sessionStorage.setItem("identifyArr",JSON.stringify(arr));
+				//alert(sessionStorage.getItem("identifyArr"));
+				window.open("identify.html","_self");
+			}
+		
+function shuffle(array) {
+  var _array = array.concat();
+
+  for (var i = _array.length; i--; ) {
+    var j = Math.floor(Math.random() * (i + 1));
+    var temp = _array[i];
+    _array[i] = _array[j];
+    _array[j] = temp;
+  }
+  
+  return _array;
+}
+		
+		
+	</script>
+</body>
+</html>

@@ -1,0 +1,252 @@
+@charset "UTF-8";
+
+@import "normalize";
+@import "compass/utilities";
+@import "compass/css3";
+@import "mixin";
+
+@include body;
+body {
+	padding: 0;
+	background: #eeefef;
+	 min-width: 310px;
+}
+
+
+/*header样式*/
+header {
+	position: relative;
+	background-color: #29bde0;
+	height: 0.55rem;
+	h3 {
+		text-align: center;
+		color: #fff;
+		margin: 0;
+		line-height: 0.55rem;
+	}
+}
+%vertical-align {
+	position: absolute;
+	@include vertical-align;
+}
+.logo-Back-Icon {
+	@extend %vertical-align;
+	left: 0.1rem;
+}
+.logo-circled-help {
+	@extend %vertical-align;
+	right: 0.1rem;
+
+}
+
+/*主体内容样式*/
+.wrap {
+	margin: 0.1rem 0.2rem;
+
+}
+.player-ratio  {
+	background-color: #fff;
+	margin-bottom: 0.1rem;
+	height: 45vh;
+	@include legacy-pie-clearfix;
+}
+.player-ratio-aside {
+	position: relative;
+	width: 0.6rem;
+	height: 100%;
+	span {
+		position: absolute;
+		@include vertical-align;
+		@include center;
+		width: 0.2rem;
+		font-size: 0.2rem;
+	}
+
+}
+.player-ratio-session {
+	width: calc(100% - 0.6rem);
+	height: 100%;
+	border-left: 1px solid #d9d9d9;
+}
+.show  {
+	table {
+		table-layout: fixed;
+		border-collapse: collapse;
+		width: 100%;
+		height: 100%;
+	}
+	
+	height: 90%;
+
+	font-size: 0;
+	letter-spacing: -4px;
+	
+	label {
+		position: relative;
+		letter-spacing: normal;
+		font-size: 0.14rem;
+		i {
+			@include inline-block;
+			position: absolute;
+			@include vertical-align;
+			left: -0.1rem;
+			width: 0.06rem;
+			height: 0.06rem;
+			background: #fab344;	
+		}
+	}
+	input {
+    	width: 0.3rem;
+    	border: none;
+    	outline: none;
+    	text-align: center;
+    }
+
+	tr {
+				
+		&:nth-child(odd) i {
+			background: #29bde0;
+		}
+	}
+
+	td {
+		text-align: center;
+	}
+
+	
+}
+.setting {
+	position: relative;
+	height: 10%;
+	text-align: center;
+	color: #29bde0;
+	border-top: 1px solid #d9d9d9;
+
+}
+.setting-word {
+	position: absolute;
+	@include center;
+
+	text-decoration: none;
+	color: #29bde0;
+	&:link,
+	&:visited,
+	&:hover,
+	&:active {
+		text-decoration: none;
+	}
+}
+.logo-pencil {
+	margin-left: 0.1rem;
+}
+
+//Word样式
+.word {
+	input {
+		display: block;
+		width: 100%;
+		border: none;
+		outline: none;
+		height: 5.5vh;
+		letter-spacing: 0.02rem;
+		border-bottom: 1px solid #d9d9d9;
+		
+	}
+	background-color: #fff;
+	padding: 0.1rem;
+	margin-bottom: 0.2rem;
+}
+
+//滑块样式
+.people-num {
+	background-color: #fff;
+	padding: 0.2rem 0.3rem;
+	margin-bottom: 0.1rem;
+}
+.show-num {
+	margin-bottom: 0.2rem;
+	label {
+		letter-spacing: 0.02rem;
+		font-weight: 400;
+	}
+	input {
+		@include inline-block;
+		width: 0.24rem;
+		color: #fab344;
+		margin: 0 0.2rem;
+		border: none;
+		font-weight: 700;
+		font-size: 0.2rem;
+		background-color: #f4f5f5;
+	}
+}
+.adjust-num {
+	@include display-flex;
+  	@include flex-direction(row);
+  	justify-content: space-around;
+	align-items:center;
+  	button {
+  		position: relative;
+  		background-color: #fff;
+  		color: #fab344;
+  		font-weight: 700;
+  		font-size: 0.2rem;
+  		outline: none;
+  		border: 1px solid #d9d9d9;
+  		width: 0.2rem;
+  		height: 0.2rem;
+
+  		span {
+			position: absolute;
+			@include center;
+  		}
+
+  		&.sub-btn {
+  			margin-right: 0.2rem;
+  		}
+  		&.add-btn {
+  			margin-left: 0.2rem;
+  		}
+  		&:active {
+  			@include single-box-shadow(1px,1px,1px,1px,#d9d9d9 );
+  		}
+  	}
+}
+//修改滑块样式
+.slider-block { /*设置滑块下面那条线的样式*/
+
+        outline: none; /*去掉点击时出现的外边框*/
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none; /*这三个是去掉那条线原有的默认样式，划重点！！*/
+        height: 0.03rem;
+        background: orange;
+        /*这三个是设置滑块下面那条线的样式*/
+
+        &::-webkit-slider-thumb {
+        /*::-webkit-slider-thumb是代表给滑块的样式进行变更*/
+        	-webkit-appearance: none;
+        	-moz-appearance: none;
+       		appearance: none; /*//这三个是去掉滑块原有的默认样式，划重点！！*/     
+        	height: 18px;
+        	width: 30px;
+        	 background: url('../image/logo-s8d8c7351f2.png') 0 -31px no-repeat;
+        	/*这几个是设置滑块的样式*/
+        	}
+}
+
+//发牌按钮样式
+.send_card {
+	background: #fab344;
+	display: block;
+	width: 100%;
+	height: 8vh;
+	border: none;
+	outline: none;
+	font-size: 0.2rem;
+	color: #fff;
+	&:active {
+		@include box-shadow(1.5px 1.5px 1.5px 1.5px #f3a62f);
+		background: #f3a62f;
+	}
+}

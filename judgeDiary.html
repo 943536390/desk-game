@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+    <script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="stylesheets/logo.css">
+    <link rel="stylesheet" type="text/css" href="stylesheets/discussion-style.css">
+    <title>文档标题</title>
+
+</head>
+<body>
+    <header>
+        <div class="header-title">
+            <span class="logo-Back-Icon"></span>
+            <h3>法官日记</h3>
+            <span class="logo-close"></span>
+        </div> 
+    </header>
+    <main>
+        <div class="wrap" id="wrap">
+                <div class="grid" id="grid1" >
+                    <div class="content" >
+                        <div class="role">水民</div>
+                        <div class="num">1号</div>
+                         <div class="cover"></div>
+                    </div>
+                </div>
+        </div>
+       
+    </main>
+    <footer>
+        <button class="vote" id="start">开始游戏</button>
+    </footer>
+
+<script type="text/javascript" src="javascripts/common.js"></script>
+<script type="text/javascript">
+    try{
+        showPlayer();
+
+    }catch(e){
+        window.location.href = "index.html";
+    }
+  
+    document.getElementById("start").onclick = function(){
+        var param = getURLParam();
+        if(param.action){
+            window.open("judgeScript.html?action="+param.action,"_self");
+        }else{
+            window.open("judgeScript.html","_self");
+        }
+        //window.open("judgeScript.html","_self");
+    }
+
+</script>
+
+</body>
+</html>

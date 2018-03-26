@@ -1,0 +1,147 @@
+* {
+	box-sizing: border-box;
+	padding: 0;margin: 0;
+}
+html,
+body {
+	width: 100%;
+	height: 100%;
+	font-size: 625%;
+}
+body {
+	font-size: 0.16rem;
+}
+
+header {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	background-color: #29bde0;
+	
+}
+/*页面头部样式*/
+.header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	width: 100%;
+	height: 0.5rem;
+	color: #fff;
+	letter-spacing: 0.02rem;
+	border-bottom: 1px solid rgba(255,255,255,0.5);
+}
+.header h4 {
+	margin: 0;
+	line-height: 0.5rem;
+	font-size: 0.18rem;
+}
+
+.bg-more {
+	margin-right: 0.1rem;
+    width: 20px; height: 20px;
+    background: url('../image/result-assets/css_sprites.png') -56px -133px;
+}
+.bg-home {
+	margin-left: 0.1rem;
+    width: 26px; height: 22px;
+    background: url('../image/result-assets/css_sprites.png') -10px -133px;
+}
+/*胜利结果样式*/
+.fix-content {
+	position: relative;
+	text-align: center;
+}
+.bg-winner {
+	margin-top: 0.2rem;
+    width: 176px;height: 103px;
+    max-width: 100%; 
+}
+.winner-appreciate {
+	margin-top: 0.1rem;
+	color: #ffc865;
+	text-align: center;
+	line-height: 0.25rem;
+	heigh
+
+}
+.winner-info {
+	letter-spacing: 0.02rem;
+	line-height: 0.25rem;
+	color: #fff;
+	font-size: 0.14rem;
+	margin-bottom: 0.2rem;
+}
+
+/*footer样式*/
+footer {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	display: flex;
+	width: 100%;
+	height: 0.7rem;
+	justify-content: center;
+	align-items: center;
+	background-color: rgba(41,189,224,0.3);
+}
+
+footer button {
+	border-radius: 0.05rem;
+	outline: none;
+	border: none;
+	margin-right: 0.1rem;
+	margin-left: 0.1rem;
+	width: 40%;
+	height: 0.5rem;
+	color: #fff;
+	font-size: 0.2rem;
+}
+.play {
+	background-color: #f66f6f;
+}
+.share {
+	background-color: #fbb435;
+}
+
+/*详细信息detail样式*/
+
+.detail {
+	position: absolute;
+	top: 4rem;
+	bottom: 0.8rem;
+	overflow: auto;
+	width: 100%;
+}
+.list-group {
+	border: none;
+	border-radius: 0;
+	border-top: 2px solid #dddddd;
+}
+.list-group-item {
+	border: none;
+	border-radius: 0;
+	border-bottom: 2px solid #dddddd;
+}
+.time {
+	margin-bottom: 0.05rem;
+	overflow: hidden;
+}
+.time-day {
+	float: left;
+	margin-left: 0.2rem;
+	font-size: 0.16rem;
+	color: #515151;
+}
+.time-duration {
+	float: right;
+	margin-right: 0.2rem;
+	font-size: 0.12rem;
+	color: #a6a6a6;
+}
+.content {
+	margin-left: 0.2rem;
+	font-size: 0.15rem;
+	color: #a6a6a6;
+	margin-bottom: 0.03rem;
+}

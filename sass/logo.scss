@@ -1,0 +1,7 @@
+@charset "UTF-8";
+
+@import "compass/utilities/sprites";
+$logo-sprite-dimensions : true;
+$logo-layout: 'smart';
+@import "logo/*.png";
+@include all-logo-sprites;
