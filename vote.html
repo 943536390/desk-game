@@ -68,8 +68,9 @@
             if(fsm.state.indexOf("die")!=-1){
                 var myDB;
                 openDB("Game",1).then(function(db){
-                  getDataByKey(db,"records",sessionStorage.getItem("day"));
-                  myDB = db;
+                   myDB = db;
+                  return getDataByKey(db,"records",sessionStorage.getItem("day"));
+                 
                 }).then(function(result){
                     result.sun = deadNum;
                     updateDataByKey(myDB,"records",result);

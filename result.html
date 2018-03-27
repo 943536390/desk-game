@@ -93,13 +93,43 @@
 	</footer>
 	<script type="text/javascript" src="javascripts/common.js"></script>
 <script type="text/javascript">
-	openDB("Game",1).then(function(db){
-		fetchStoreByCursor(db,"records");
-	}).then(function(cursor){
-		if(cursor){
-			console.log("key:"+cursor.key+",value:"+cursor.value);
+	// openDB("Game",1).then(function(db){
+	// 	return fetchStoreByCursor(db,"records");
+	// }).then(function(cursor){
+	// 	if(cursor){
+	// 		console.log("key:"+cursor.key+",day:"+cursor.value.day+",moon:"+cursor.value.moon+",sun:"+cursor.value.sun);
+	// 		cursor.continue();
+	// 	}
+	// });
+  
+ var version=version || 1;
+            var idbRequest=getIndexedDB().open("Game",1);
+            idbRequest.onerror=function(e){
+                console.log(e.currentTarget.error.message);
+            };
+            idbRequest.onsuccess=function(e){
+                var db = e.target.result; 
+                var transaction=db.transaction("records");
+    var store=transaction.objectStore("records");
+    var request=store.openCursor();
+    request.onsuccess=function(e){
+    	cursor = e.target.result;
+        if(cursor){
+			console.log("key:"+cursor.key+",day:"+cursor.value.day+",moon:"+cursor.value.moon+",sun:"+cursor.value.sun);
+			cursor.continue();
 		}
-	});
+    };
+                
+            };
+            idbRequest.onupgradeneeded=function(e){
+                var db=e.target.result;
+                if(!db.objectStoreNames.contains('records')){
+                    //db.createObjectStore('students',{autoIncrement: true});//keyGenerator
+                    db.createObjectStore('records',{keyPath:"day"});
+                }
+                console.log('DB version changed to '+version);
+            };
+
 </script>
 </body>
 </html>
